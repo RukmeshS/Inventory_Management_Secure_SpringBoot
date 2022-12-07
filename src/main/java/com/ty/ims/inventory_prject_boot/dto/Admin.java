@@ -1,5 +1,6 @@
 package com.ty.ims.inventory_prject_boot.dto;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,8 +20,13 @@ public class Admin {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@NotNull
-	private String email;
+	private String adminEmail;
 	@NotNull
-	private String password;
-	
+	private String adminPassword;
+	@NotNull
+	private String adminName;
+	@Column(unique = true)
+	private String adminRole;
+	@NotNull
+	private long adminPhone; 
 }
