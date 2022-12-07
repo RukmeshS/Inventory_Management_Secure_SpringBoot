@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.ty.ims.inventory_prject_boot.dto.Inventory;
 
-public interface InventoryRepo extends JpaRepository<Inventory, Integer> {
+public interface InventoryRepository extends JpaRepository<Inventory, Integer> {
 
 }
