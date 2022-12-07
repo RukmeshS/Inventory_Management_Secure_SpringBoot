@@ -31,4 +31,6 @@ public class Item {
 	@ManyToMany(mappedBy = "item")
 	private List<Customer> customer;
 
+	@ManyToMany(mappedBy = "items")
+	private List<Supplier> suppliers;
 }
