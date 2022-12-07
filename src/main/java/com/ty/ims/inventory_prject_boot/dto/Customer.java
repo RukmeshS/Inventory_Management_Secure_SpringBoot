@@ -23,14 +23,16 @@ public class Customer {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int customerId;
 	@NotNull
+	private String customerName;
+	@NotNull
+	private String customerEmailId;
+	@NotNull
+	private long customerPhoneNo;
+	@NotNull
 	private Date outwardDate;
 	@NotNull
-	private String product;
-	@NotNull
 	private int outwardQuantity;
-	@NotNull
-	private String requestedBy;
 	@ManyToMany
-	@JoinTable(joinColumns =@JoinColumn,inverseJoinColumns = @JoinColumn)
+	@JoinTable(joinColumns = @JoinColumn, inverseJoinColumns = @JoinColumn)
 	private List<Item> item;
 }
