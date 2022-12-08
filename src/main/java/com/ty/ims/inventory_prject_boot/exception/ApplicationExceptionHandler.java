@@ -66,7 +66,7 @@ public class ApplicationExceptionHandler  extends ResponseEntityExceptionHandler
 		responseStructure.setMessage("No more admins are allowed");
 		responseStructure.setData(exception.getMessage());
 		
-		ResponseEntity<ResponseStructure<String>> responseEntity = new ResponseEntity<ResponseStructure<String>>(HttpStatus.NOT_ACCEPTABLE);
+		ResponseEntity<ResponseStructure<String>> responseEntity = new ResponseEntity<ResponseStructure<String>>(responseStructure,HttpStatus.NOT_ACCEPTABLE);
 		
 		return responseEntity;
 		
