@@ -28,8 +28,9 @@ public class InventoryService {
 	}
 
 	public ResponseEntity<ResponseStructure<Inventory>> serviceUpdateInventory(Inventory inventory, int id) {
-		Optional<Inventory> inventory2 = dao.findInventorybyid(id);
-		if (inventory2.isPresent()) {
+		Optional<Inventory> optional = dao.findInventorybyid(id);
+		if (optional.isPresent()) {
+			inventory.setProduct_id(id);
 			ResponseStructure<Inventory> responseStructure = new ResponseStructure<Inventory>();
 			responseStructure.setStatus(HttpStatus.ACCEPTED.value());
 			responseStructure.setMessage("Inventory Product Update");
@@ -40,12 +41,12 @@ public class InventoryService {
 	}
 
 	public ResponseEntity<ResponseStructure<Inventory>> serviceFindInvById(int id) {
-		Optional<Inventory> inventory3 = dao.findInventorybyid(id);
+		Optional<Inventory> optional = dao.findInventorybyid(id);
 		ResponseStructure<Inventory> responseStructure = new ResponseStructure<Inventory>();
-		if (inventory3.isPresent()) {
+		if (optional.isPresent()) {
 			responseStructure.setStatus(HttpStatus.FOUND.value());
 			responseStructure.setMessage("Inventory Product Found");
-			responseStructure.setData(inventory3.get());
+			responseStructure.setData(optional.get());
 			return new ResponseEntity<ResponseStructure<Inventory>>(responseStructure, HttpStatus.FOUND);
 		}
 		throw new NoSuchIdFoundException();
@@ -55,11 +56,11 @@ public class InventoryService {
 		ResponseStructure<Inventory> responseStructure = new ResponseStructure<Inventory>();
 		Optional<Inventory> optional = dao.findInventorybyid(id);
 		if (optional.isPresent()) {
-			dao.deleteInventory(optional.get());
 			responseStructure.setStatus(HttpStatus.OK.value());
 			responseStructure.setMessage("Inventory Product Deleted");
 			responseStructure.setData(optional.get());
-			return new ResponseEntity<ResponseStructure<Inventory>>(responseStructure, HttpStatus.FOUND);
+			dao.deleteInventory(optional.get());
+			return new ResponseEntity<ResponseStructure<Inventory>>(responseStructure, HttpStatus.OK);
 		}
 		throw new NoSuchIdFoundException();
 	}
