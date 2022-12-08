@@ -11,7 +11,7 @@ import com.ty.ims.inventory_prject_boot.repository.CustomerRepository;
 @Repository
 public class CustomerDao {
 	@Autowired
-	CustomerRepository repository;
+	private CustomerRepository repository;
 
 	public Customer saveOutward(Customer customer) {
 		return repository.save(customer);

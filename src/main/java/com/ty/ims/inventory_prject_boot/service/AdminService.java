@@ -18,85 +18,80 @@ public class AdminService {
 
 	@Autowired
 	private AdminDao adminDao;
-	
+
 	public ResponseEntity<ResponseStructure<Admin>> saveAdmin(Admin admin) {
-		ResponseStructure<Admin>  responseStructure = new ResponseStructure<Admin>();
-		
-		if(adminDao.getAllAdmin().size()<=3) {
+		ResponseStructure<Admin> responseStructure = new ResponseStructure<Admin>();
+
+		if (adminDao.getAllAdmin().size() <= 3) {
 			responseStructure.setStatus(HttpStatus.CREATED.value());
 			responseStructure.setMessage("Admin created");
 			responseStructure.setData(adminDao.saveAdmin(admin));
+		} else {
+			throw new AdminRegisterNotAllowedException();
 		}
-		else {
-			 throw new AdminRegisterNotAllowedException();
-		}
-		ResponseEntity<ResponseStructure<Admin>> responseEntity = new ResponseEntity<ResponseStructure<Admin>>(responseStructure,HttpStatus.CREATED);
-		
-		return responseEntity;
-	
-		
-	}
-	
-	public ResponseEntity<ResponseStructure<Admin>> updateAdmin(Admin admin, int id){
-		ResponseStructure<Admin>  responseStructure = new ResponseStructure<Admin>();
+		ResponseEntity<ResponseStructure<Admin>> responseEntity = new ResponseEntity<ResponseStructure<Admin>>(
+				responseStructure, HttpStatus.CREATED);
 
-		Optional<Admin> admin2= adminDao.getAdminById(id);
-		
-		if(admin2.isPresent()) {
+		return responseEntity;
+
+	}
+
+	public ResponseEntity<ResponseStructure<Admin>> updateAdmin(Admin admin, int id) {
+		ResponseStructure<Admin> responseStructure = new ResponseStructure<Admin>();
+
+		Optional<Admin> admin2 = adminDao.getAdminById(id);
+
+		if (admin2.isPresent()) {
 			admin.setId(id);
 			responseStructure.setStatus(HttpStatus.CREATED.value());
 			responseStructure.setMessage("Admin Found & Updated");
 			responseStructure.setData(adminDao.saveAdmin(admin));
-		}
-		else {
+		} else {
 			throw new NoSuchIdFoundException();
 		}
-		ResponseEntity<ResponseStructure<Admin>> responseEntity = new ResponseEntity<ResponseStructure<Admin>>(responseStructure,HttpStatus.CREATED);
+		ResponseEntity<ResponseStructure<Admin>> responseEntity = new ResponseEntity<ResponseStructure<Admin>>(
+				responseStructure, HttpStatus.CREATED);
 
 		return responseEntity;
 	}
-	
-	
-	public ResponseEntity<ResponseStructure<Admin>> getAdminById(int id){
-			
+
+	public ResponseEntity<ResponseStructure<Admin>> getAdminById(int id) {
+
 		ResponseStructure<Admin> responseStructure = new ResponseStructure<Admin>();
-		
-		Optional<Admin> optional= adminDao.getAdminById(id);
-		
-		if(optional.isPresent()) {
+
+		Optional<Admin> optional = adminDao.getAdminById(id);
+
+		if (optional.isPresent()) {
 			responseStructure.setStatus(HttpStatus.FOUND.value());
 			responseStructure.setMessage("Admin Found");
 			responseStructure.setData(optional.get());
-			
-		}else {
+
+		} else {
 			throw new NoSuchIdFoundException();
 		}
-		ResponseEntity<ResponseStructure<Admin>> responseEntity = new ResponseEntity<ResponseStructure<Admin>>(responseStructure,HttpStatus.FOUND);
+		ResponseEntity<ResponseStructure<Admin>> responseEntity = new ResponseEntity<ResponseStructure<Admin>>(
+				responseStructure, HttpStatus.FOUND);
 
 		return responseEntity;
 	}
-	
-	
-	public ResponseEntity<ResponseStructure<Admin>> deleteAdmin(int id){
+
+	public ResponseEntity<ResponseStructure<Admin>> deleteAdmin(int id) {
 		ResponseStructure<Admin> responseStructure = new ResponseStructure<Admin>();
 		Optional<Admin> optional = adminDao.getAdminById(id);
-		
-		if(optional.isPresent()) {
+
+		if (optional.isPresent()) {
 			adminDao.deleteAdmin(optional.get());
 			responseStructure.setStatus(HttpStatus.FOUND.value());
 			responseStructure.setMessage("Admin Found and Deleted");
 			responseStructure.setData(optional.get());
-		}
-		else {
+		} else {
 			throw new NoSuchIdFoundException();
 		}
-		ResponseEntity<ResponseStructure<Admin>> responseEntity = new ResponseEntity<ResponseStructure<Admin>>(responseStructure,HttpStatus.FOUND);
+		ResponseEntity<ResponseStructure<Admin>> responseEntity = new ResponseEntity<ResponseStructure<Admin>>(
+				responseStructure, HttpStatus.FOUND);
 
-		
 		return responseEntity;
-		
-		
+
 	}
-	
-	
+
 }
