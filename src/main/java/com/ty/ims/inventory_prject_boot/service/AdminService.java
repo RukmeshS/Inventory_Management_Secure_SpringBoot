@@ -23,6 +23,7 @@ public class AdminService {
 	public ResponseEntity<ResponseStructure<Admin>> saveAdmin(Admin admin) {
 		ResponseStructure<Admin> responseStructure = new ResponseStructure<Admin>();
 
+
 		if (adminDao.getAllAdmin().size() < 3) {
 			responseStructure.setStatus(HttpStatus.CREATED.value());
 			responseStructure.setMessage("Admin created");
@@ -94,6 +95,7 @@ public class AdminService {
 		return responseEntity;
 
 	}
+
 	
 	
 	public ResponseEntity<ResponseStructure<Admin>> loginAdmin(Admin admin){
@@ -114,5 +116,6 @@ public class AdminService {
 		
 		return new ResponseEntity<ResponseStructure<Admin>>(responseStructure,HttpStatus.FOUND);
 	}
+
 
 }

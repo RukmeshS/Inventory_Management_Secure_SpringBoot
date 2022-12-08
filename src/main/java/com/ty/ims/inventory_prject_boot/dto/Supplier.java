@@ -12,6 +12,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,7 +34,7 @@ public class Supplier {
 	private Date inwardDate;
 	@NotNull
 	private int inwardQuantity;
-
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(joinColumns = @JoinColumn, inverseJoinColumns = @JoinColumn)
 	private List<Item> items;

@@ -11,7 +11,7 @@ import com.ty.ims.inventory_prject_boot.repository.SupplierRepository;
 @Repository
 public class SupplierDao {
 	@Autowired
-	SupplierRepository repository;
+	private SupplierRepository repository;
 
 	public Supplier saveInward(Supplier supplier) {
 		return repository.save(supplier);

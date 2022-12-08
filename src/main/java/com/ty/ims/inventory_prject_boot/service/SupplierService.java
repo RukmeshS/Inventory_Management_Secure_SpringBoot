@@ -16,7 +16,7 @@ import com.ty.ims.inventory_prject_boot.util.ResponseStructure;
 @Service
 public class SupplierService {
 	@Autowired
-	SupplierDao dao;
+	private SupplierDao dao;
 
 	public ResponseEntity<ResponseStructure<Supplier>> saveinward(Supplier supplier) {
 		ResponseStructure<Supplier> responseStructure = new ResponseStructure<Supplier>();
