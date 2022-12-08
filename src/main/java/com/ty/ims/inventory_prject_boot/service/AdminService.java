@@ -1,5 +1,6 @@
 package com.ty.ims.inventory_prject_boot.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,8 @@ public class AdminService {
 	public ResponseEntity<ResponseStructure<Admin>> saveAdmin(Admin admin) {
 		ResponseStructure<Admin> responseStructure = new ResponseStructure<Admin>();
 
-		if (adminDao.getAllAdmin().size() <= 3) {
+
+		if (adminDao.getAllAdmin().size() < 3) {
 			responseStructure.setStatus(HttpStatus.CREATED.value());
 			responseStructure.setMessage("Admin created");
 			responseStructure.setData(adminDao.saveAdmin(admin));
@@ -93,5 +95,27 @@ public class AdminService {
 		return responseEntity;
 
 	}
+
+	
+	
+	public ResponseEntity<ResponseStructure<Admin>> loginAdmin(Admin admin){
+		ResponseStructure<Admin> responseStructure = new ResponseStructure<Admin>();
+
+		
+		String password= admin.getAdminPassword();
+		List<Admin> alladmin=adminDao.getAllAdmin();
+		
+		for (Admin admin2 : alladmin) {
+			if(admin2.getAdminPassword().equals(password)) {
+				responseStructure.setStatus(HttpStatus.FOUND.value());
+				responseStructure.setMessage("Admin Found & Granted Access");
+				responseStructure.setData(admin);
+				break;
+			}
+		}
+		
+		return new ResponseEntity<ResponseStructure<Admin>>(responseStructure,HttpStatus.FOUND);
+	}
+
 
 }
