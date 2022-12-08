@@ -7,8 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,11 +24,11 @@ public class Inventory {
 	private int product_id;
 	@NotNull
 	private String product_name;
-	@NotBlank
-	private double product_quantity;
+	@NotNull
+	private int product_quantity;
 
+	@JsonIgnore
 	@OneToMany
-	private List<Item>  item;
-	
-	
+	private List<Item> item;
+
 }

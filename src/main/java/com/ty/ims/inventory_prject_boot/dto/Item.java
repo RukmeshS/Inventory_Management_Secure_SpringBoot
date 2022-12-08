@@ -7,8 +7,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -23,14 +24,16 @@ public class Item {
 	private int item_id;
 	@NotNull
 	private String item_name;
-	@NotBlank
+	@NotNull
 	private int item_quantity;
-	@NotBlank
+	@NotNull
 	private double item_price;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "item")
 	private List<Customer> customer;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "items")
 	private List<Supplier> suppliers;
 }

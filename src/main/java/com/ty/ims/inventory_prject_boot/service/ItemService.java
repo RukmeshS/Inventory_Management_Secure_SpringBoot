@@ -31,6 +31,7 @@ public class ItemService {
 		ResponseStructure<Item> responseStructure = new ResponseStructure<Item>();
 		Optional<Item> optional = dao.findItembyid(id);
 		if (optional.isPresent()) {
+			item.setItem_id(id);
 			responseStructure.setStatus(HttpStatus.ACCEPTED.value());
 			responseStructure.setMessage("Inventory Item updated");
 			responseStructure.setData(dao.updateItem(item));
