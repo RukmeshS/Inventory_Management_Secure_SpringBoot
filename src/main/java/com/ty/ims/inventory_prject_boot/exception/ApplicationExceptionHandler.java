@@ -28,7 +28,7 @@ public class ApplicationExceptionHandler  extends ResponseEntityExceptionHandler
 		responseStructure.setMessage("ID Not FOund");
 		responseStructure.setData(exception.getMessage());
 		
-		ResponseEntity<ResponseStructure<String>> responseEntity = new ResponseEntity<ResponseStructure<String>>(HttpStatus.NOT_FOUND);
+		ResponseEntity<ResponseStructure<String>> responseEntity = new ResponseEntity<ResponseStructure<String>>(responseStructure,HttpStatus.NOT_FOUND);
 		
 		return responseEntity;
 		
@@ -59,6 +59,19 @@ public class ApplicationExceptionHandler  extends ResponseEntityExceptionHandler
 		return new ResponseEntity<>(responseStructure,HttpStatus.BAD_REQUEST);
 	}
 	
+	@ExceptionHandler
+	public ResponseEntity<ResponseStructure<String>> adminRegisterNotAllowedExceptionHandler(AdminRegisterNotAllowedException exception){
+		ResponseStructure<String>  responseStructure = new ResponseStructure<String>();
+		responseStructure.setStatus(HttpStatus.NOT_ACCEPTABLE.value());
+		responseStructure.setMessage("No more admins are allowed");
+		responseStructure.setData(exception.getMessage());
+		
+		ResponseEntity<ResponseStructure<String>> responseEntity = new ResponseEntity<ResponseStructure<String>>(HttpStatus.NOT_ACCEPTABLE);
+		
+		return responseEntity;
+		
+		
+	}
 	
 	
 	
