@@ -21,28 +21,22 @@ public class AdminDao {
 	}
 	
 	
-//	public List<Admin> getAllAdmin(){
-//		return adminRepository.getAdmins();
-//	}
+	public List<Admin> getAllAdmin(){
+		return adminRepository.findAll();
+	}
 	
 	
-	public Admin getAdminById(int id) {
-		Optional<Admin> optional = adminRepository.findById(id);
-		if(optional.isPresent()) {
-			return optional.get();
-		}else {
-			return null;
-		}
-	
+	public Optional<Admin> getAdminById(int id) {	
+			return adminRepository.findById(id);
 	}
 	
 	public Admin updateAdmin(Admin admin) {
 		return adminRepository.save(admin);
 	}
 	
-	public String deleteAdmin(int id) {
-		adminRepository.deleteById(id);
-		return "Deleted";
+	public void deleteAdmin(Admin admin) {
+		 adminRepository.delete(admin);
+		 
 	}
 	
 }
