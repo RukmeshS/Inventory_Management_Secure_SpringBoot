@@ -44,7 +44,7 @@ public class InventoryService {
 		ResponseStructure<Inventory> responseStructure = new ResponseStructure<Inventory>();
 		if (inventory3.isPresent()) {
 			responseStructure.setStatus(HttpStatus.FOUND.value());
-			responseStructure.setMessage("Inventory Product Not Found");
+			responseStructure.setMessage("Inventory Product Found");
 			responseStructure.setData(inventory3.get());
 			return new ResponseEntity<ResponseStructure<Inventory>>(responseStructure, HttpStatus.FOUND);
 		}
