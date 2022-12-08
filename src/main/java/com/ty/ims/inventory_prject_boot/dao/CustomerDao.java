@@ -25,7 +25,7 @@ public class CustomerDao {
 		return repository.findById(id);
 	}
 
-	public void deleteOutwardById(Customer customer) {
+	public void deleteOutward(Customer customer) {
 		repository.delete(customer);
 	}
 }

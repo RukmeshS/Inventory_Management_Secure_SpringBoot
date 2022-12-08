@@ -25,7 +25,7 @@ public class SupplierDao {
 		return repository.findById(id);
 	}
 
-	public void deleteInwardById(Supplier supplier) {
+	public void deleteInward(Supplier supplier) {
 		repository.delete(supplier);
 	}
 }
