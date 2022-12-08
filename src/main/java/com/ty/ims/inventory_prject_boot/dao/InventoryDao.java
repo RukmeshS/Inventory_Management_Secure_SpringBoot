@@ -22,17 +22,12 @@ public class InventoryDao {
 		return repository.save(inventory);
 	}
 
-	public Inventory findInventorybyid(int id) {
-		Optional<Inventory> optional = repository.findById(id);
-		if (optional.isPresent()) {
-			return optional.get();
-		}
-		return null;
+	public Optional<Inventory> findInventorybyid(int id) {
+		return repository.findById(id);
 	}
 
-	public String deleteInventory(int id) {
-		repository.deleteById(id);
-		return "Inventory Deleted";
+	public void deleteInventory(Inventory inventory) {
+		repository.delete(inventory);
 	}
 
 }
