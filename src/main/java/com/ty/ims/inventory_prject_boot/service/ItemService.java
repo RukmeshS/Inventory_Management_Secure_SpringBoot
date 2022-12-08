@@ -51,7 +51,7 @@ public class ItemService {
 		throw new NoSuchIdFoundException();
 	}
 
-	public ResponseEntity<ResponseStructure<Item>> serviceDelete(int id) {
+	public ResponseEntity<ResponseStructure<Item>> serviceDeleteItem(int id) {
 		ResponseStructure<Item> responseStructure = new ResponseStructure<Item>();
 		Optional<Item> optional = dao.findItembyid(id);
 		if (optional.isPresent()) {
