@@ -22,16 +22,11 @@ public class ItemDao {
 		return repository.save(item);
 	}
 
-	public Item findItembyid(int id) {
-		Optional<Item> optional = repository.findById(id);
-		if (optional.isPresent()) {
-			return optional.get();
-		}
-		return null;
+	public Optional<Item> findItembyid(int id) {
+		return repository.findById(id);
 	}
 
-	public String deleteItem(int id) {
-		repository.deleteById(id);
-		return "Item Deleted";
+	public void deleteItem(Item item) {
+		repository.delete(item);
 	}
 }
