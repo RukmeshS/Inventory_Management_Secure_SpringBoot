@@ -21,16 +21,11 @@ public class SupplierDao {
 		return repository.save(supplier);
 	}
 
-	public Supplier getInwardById(int id) {
-		Optional<Supplier> optional = repository.findById(id);
-		if (optional.isEmpty()) {
-			return null;
-		}
-		return optional.get();
+	public Optional<Supplier> getInwardById(int id) {
+		return repository.findById(id);
 	}
 
-	public String deleteInwardById(int id) {
-		repository.deleteById(id);
-		return "inward deleted for id " + id;
+	public void deleteInward(Supplier supplier) {
+		repository.delete(supplier);
 	}
 }

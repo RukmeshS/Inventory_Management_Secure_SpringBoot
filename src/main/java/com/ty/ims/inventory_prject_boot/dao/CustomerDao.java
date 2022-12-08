@@ -21,16 +21,11 @@ public class CustomerDao {
 		return repository.save(customer);
 	}
 
-	public Customer updateOutwardById(int id) {
-		Optional<Customer> optional = repository.findById(id);
-		if (optional.isEmpty()) {
-			return null;
-		}
-		return optional.get();
+	public Optional<Customer> updateOutwardById(int id) {
+		return repository.findById(id);
 	}
 
-	public String deleteOutwardById(int id) {
-		repository.deleteById(id);
-		return "outward deleted for id " + id;
+	public void deleteOutward(Customer customer) {
+		repository.delete(customer);
 	}
 }
