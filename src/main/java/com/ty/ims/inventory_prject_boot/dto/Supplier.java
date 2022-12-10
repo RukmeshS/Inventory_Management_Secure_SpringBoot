@@ -3,6 +3,7 @@ package com.ty.ims.inventory_prject_boot.dto;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,8 +35,8 @@ public class Supplier {
 	private Date inwardDate;
 	@NotNull
 	private int inwardQuantity;
-	@JsonIgnore
-	@ManyToMany
+//	@JsonIgnore
+	@ManyToMany(cascade = CascadeType.PERSIST)
 	@JoinTable(joinColumns = @JoinColumn, inverseJoinColumns = @JoinColumn)
 	private List<Item> items;
 

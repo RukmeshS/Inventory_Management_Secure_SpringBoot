@@ -20,6 +20,8 @@ public class SupplierService {
 
 	public ResponseEntity<ResponseStructure<Supplier>> saveinward(Supplier supplier) {
 		ResponseStructure<Supplier> responseStructure = new ResponseStructure<Supplier>();
+		List<Item> listItems = supplier.getItems();
+		supplier.setItems(listItems);
 		responseStructure.setStatus(HttpStatus.CREATED.value());
 		responseStructure.setMessage("supplier saved");
 		responseStructure.setData(dao.saveInward(supplier));
@@ -32,8 +34,18 @@ public class SupplierService {
 		ResponseStructure<Supplier> responseStructure = new ResponseStructure<Supplier>();
 		Optional<Supplier> supplier2 = dao.getInwardById(id);
 		if (supplier2.isPresent()) {
-//			List<Item> items = supplier.getItems();
-//			supplier.setItems(items);
+			List<Item> items = supplier.getItems();
+			List<Item> items1 = supplier2.get().getItems();
+			
+			//not working
+			for (Item item : items) {
+				for (Item item1 : items1) {
+					item.setItem_id(item1.getItem_id());
+				}
+
+			}
+
+			supplier.setItems(items1);
 			supplier.setSupplierId(id);
 			responseStructure.setStatus(HttpStatus.CREATED.value());
 			responseStructure.setMessage("supplier updated");

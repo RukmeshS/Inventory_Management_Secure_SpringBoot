@@ -20,6 +20,8 @@ public class CustomerSevice {
 
 	public ResponseEntity<ResponseStructure<Customer>> saveOutward(Customer customer) {
 		ResponseStructure<Customer> responseStructure = new ResponseStructure<Customer>();
+		List<Item> listItems = customer.getItem();
+		customer.setItem(listItems);
 		responseStructure.setStatus(HttpStatus.CREATED.value());
 		responseStructure.setMessage("customer saved");
 		responseStructure.setData(dao.saveOutward(customer));
@@ -33,12 +35,12 @@ public class CustomerSevice {
 		ResponseStructure<Customer> responseStructure = new ResponseStructure<Customer>();
 		Optional<Customer> customer2 = dao.getOutwardById(id);
 		if (customer2.isPresent()) {
-//			List<Item> items = customer.getItem();
+			List<Item> items = customer.getItem();
+			customer.setItem(items);
 			customer.setCustomerId(id);
-//			customer.setItem(items);
 			responseStructure.setStatus(HttpStatus.CREATED.value());
 			responseStructure.setMessage("customer updated");
-			responseStructure.setData(dao.saveOutward(customer));
+			responseStructure.setData(dao.updateOutward(customer));
 		} else {
 			throw new NoSuchIdFoundException();
 		}
