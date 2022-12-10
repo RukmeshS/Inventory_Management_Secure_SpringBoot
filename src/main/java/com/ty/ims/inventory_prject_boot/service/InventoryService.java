@@ -1,5 +1,6 @@
 package com.ty.ims.inventory_prject_boot.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.ty.ims.inventory_prject_boot.dao.InventoryDao;
 import com.ty.ims.inventory_prject_boot.dto.Inventory;
+import com.ty.ims.inventory_prject_boot.dto.Item;
 import com.ty.ims.inventory_prject_boot.exception.NoSuchIdFoundException;
 import com.ty.ims.inventory_prject_boot.util.ResponseStructure;
 
@@ -25,6 +27,26 @@ public class InventoryService {
 		responseStructure.setData(dao.saveInventory(inventory));
 		return new ResponseEntity<ResponseStructure<Inventory>>(responseStructure, HttpStatus.CREATED);
 
+	}
+
+	public ResponseEntity<ResponseStructure<Inventory>> serviceqtySaveInventory(Inventory inventory, int id) {
+		ResponseStructure<Inventory> responseStructure = new ResponseStructure<Inventory>();
+		Optional<Inventory> optional = dao.findInventorybyid(id);
+		if (optional.isPresent()) {
+			inventory.setProduct_id(id);
+			List<Item> list = optional.get().getItem();
+			int total_quantity = 0;
+			for (Item item : list) {
+				total_quantity = total_quantity + (item.getItem_quantity());
+			}
+			inventory.setProduct_quantity(total_quantity);
+
+			responseStructure.setStatus(HttpStatus.OK.value());
+			responseStructure.setMessage("Inventory Product Created and Updated Total Quantity");
+			responseStructure.setData(dao.saveInventory(inventory));
+			return new ResponseEntity<ResponseStructure<Inventory>>(responseStructure, HttpStatus.OK);
+		}
+		throw new NoSuchIdFoundException();
 	}
 
 	public ResponseEntity<ResponseStructure<Inventory>> serviceUpdateInventory(Inventory inventory, int id) {

@@ -6,8 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotNull;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -22,12 +23,14 @@ public class Item {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int item_id;
-	@NotNull
 	private String item_name;
-	@NotNull
 	private int item_quantity;
-	@NotNull
 	private double item_price;
+
+	@JsonIgnore
+	@ManyToOne
+	@JoinColumn
+	private Inventory inventory;
 
 	@JsonIgnore
 	@ManyToMany(mappedBy = "item")
