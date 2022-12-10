@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.ty.ims.inventory_prject_boot.exception.EmailNotSendException;
 import com.ty.ims.inventory_prject_boot.util.ResponseStructure;
 
 @RestControllerAdvice
@@ -71,6 +72,20 @@ public class ApplicationExceptionHandler  extends ResponseEntityExceptionHandler
 		return responseEntity;
 		
 		
+	}
+	
+	
+	@ExceptionHandler
+	public ResponseEntity<ResponseStructure<String>> emailNotSendExceptionHandler(EmailNotSendException exception){
+		
+		ResponseStructure<String>  responseStructure = new ResponseStructure<String>();
+		responseStructure.setStatus(HttpStatus.UNAUTHORIZED.value());
+		responseStructure.setMessage("Error while Sending The Mail");
+		responseStructure.setData(exception.getMessage());
+		
+		ResponseEntity<ResponseStructure<String>> responseEntity = new ResponseEntity<ResponseStructure<String>>(responseStructure,HttpStatus.UNAUTHORIZED);
+		
+		return responseEntity;
 	}
 	
 	
