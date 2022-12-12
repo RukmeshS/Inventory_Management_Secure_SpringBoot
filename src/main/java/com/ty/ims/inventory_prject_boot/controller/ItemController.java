@@ -36,9 +36,9 @@ public class ItemController {
 
 	@ApiOperation(value = "Updation of Item", notes = "Used in Updation of Items")
 	@ApiResponses(value = { @ApiResponse(code = 500, message = "Internal Server Error") })
-	@PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ResponseStructure<Item>> updateItem(@RequestBody Item item, @RequestParam int id) {
-		return service.serviceUpdateItem(item, id);
+	@PutMapping(value ="/{inventoryID}",consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ResponseStructure<Item>> updateItem(@RequestBody Item item, @RequestParam int id,@PathVariable int inventoryID) {
+		return service.serviceUpdateItem(item, id,inventoryID);
 	}
 
 	@ApiOperation(value = "Finding Item", notes = "Used to find Items by Id")

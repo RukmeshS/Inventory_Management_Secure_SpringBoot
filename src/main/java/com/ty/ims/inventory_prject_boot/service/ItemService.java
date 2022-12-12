@@ -36,15 +36,19 @@ public class ItemService {
 		throw new NoSuchIdFoundException();
 	}
 
-	public ResponseEntity<ResponseStructure<Item>> serviceUpdateItem(Item item, int id) {
+	public ResponseEntity<ResponseStructure<Item>> serviceUpdateItem(Item item, int id, int Invid) {
 		ResponseStructure<Item> responseStructure = new ResponseStructure<Item>();
 		Optional<Item> optional = dao.findItembyid(id);
-		if (optional.isPresent()) {
-			item.setItem_id(id);
-			responseStructure.setStatus(HttpStatus.ACCEPTED.value());
-			responseStructure.setMessage("Inventory Item updated");
-			responseStructure.setData(dao.updateItem(item));
-			return new ResponseEntity<ResponseStructure<Item>>(responseStructure, HttpStatus.ACCEPTED);
+		Optional<Inventory> optional1 = invdao.findInventorybyid(Invid);
+		if (optional1.isPresent()) {
+			item.setInventory(optional1.get());
+			if (optional.isPresent()) {
+				item.setItem_id(id);
+				responseStructure.setStatus(HttpStatus.ACCEPTED.value());
+				responseStructure.setMessage("Inventory Item updated");
+				responseStructure.setData(dao.updateItem(item));
+				return new ResponseEntity<ResponseStructure<Item>>(responseStructure, HttpStatus.ACCEPTED);
+			}
 		}
 		throw new NoSuchIdFoundException();
 	}
