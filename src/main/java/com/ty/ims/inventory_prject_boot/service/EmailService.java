@@ -9,7 +9,7 @@ import com.ty.ims.inventory_prject_boot.util.ResponseStructure;
 
 public interface EmailService {
 
-	 abstract ResponseEntity<ResponseStructure<String>> sendSimpleMail(EmailDetails details,int supplierid);
+	 abstract ResponseEntity<ResponseStructure<String>> sendSimpleMail(EmailDetails details);
 	 
 	    
 	   abstract ResponseEntity<ResponseStructure<String>> sendMailWithAttachment(EmailDetails details) throws MessagingException;

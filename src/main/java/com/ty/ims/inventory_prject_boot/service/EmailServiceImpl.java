@@ -1,6 +1,7 @@
 package com.ty.ims.inventory_prject_boot.service;
 
 import java.io.File;
+import java.util.List;
 import java.util.Optional;
 
 import javax.mail.MessagingException;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.ty.ims.inventory_prject_boot.dao.SupplierDao;
 import com.ty.ims.inventory_prject_boot.dto.EmailDetails;
+import com.ty.ims.inventory_prject_boot.dto.Item;
 import com.ty.ims.inventory_prject_boot.dto.Supplier;
 import com.ty.ims.inventory_prject_boot.exception.EmailNotSendException;
 import com.ty.ims.inventory_prject_boot.util.ResponseStructure;
@@ -31,13 +33,9 @@ public class EmailServiceImpl implements EmailService {
 	@Value("${spring.mail.username}") 
 	private String sender;
 	
-	@Autowired
-	SupplierDao supplierDao;
-
-	
 
 	@Override
-	public ResponseEntity<ResponseStructure<String>> sendSimpleMail(EmailDetails details,int supplierid) throws EmailNotSendException  {
+	public ResponseEntity<ResponseStructure<String>> sendSimpleMail(EmailDetails details) throws EmailNotSendException  {
 	
 			 
             SimpleMailMessage mailMessage = new SimpleMailMessage();
@@ -46,21 +44,7 @@ public class EmailServiceImpl implements EmailService {
             mailMessage.setTo(details.getRecipient());
             mailMessage.setText(details.getMsgBody());
             mailMessage.setSubject(details.getSubject());
-           
-            Optional<Supplier> optional=supplierDao.getInwardById(supplierid);
             
-        	Supplier supplier;
-            
-            if(optional.isPresent()) {
-            	supplier=optional.get();
-            	if(details.getRecipient().matches(supplier.getSupplierEmailId())){
-                	supplier.getSupplierEmailId();
-                	supplier.setSupplierId(supplierid);
-                    details.setSupplier(supplier);
-                    supplierDao.saveInward(supplier);
-                }
-            }
- 
             ResponseStructure<String> responseStructure= new ResponseStructure<String>();
             
             responseStructure.setStatus(HttpStatus.OK.value());

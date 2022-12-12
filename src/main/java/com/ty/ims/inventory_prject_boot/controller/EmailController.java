@@ -5,6 +5,7 @@ import javax.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,9 +23,9 @@ public class EmailController {
 	
 	
 	@PostMapping("sendMail")
-    public ResponseEntity<ResponseStructure<String>> sendMail(@RequestBody EmailDetails details,@RequestParam int supplierid){
+    public ResponseEntity<ResponseStructure<String>> sendMail(@RequestBody EmailDetails details){
 
-        return emailService.sendSimpleMail(details,supplierid);
+        return emailService.sendSimpleMail(details);
     }
  
     @PostMapping("/sendMailWithAttachment")
