@@ -1,5 +1,6 @@
 package com.ty.ims.inventory_prject_boot.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.ty.ims.inventory_prject_boot.dao.CustomerDao;
+import com.ty.ims.inventory_prject_boot.dao.ItemDao;
 import com.ty.ims.inventory_prject_boot.dto.Customer;
 import com.ty.ims.inventory_prject_boot.dto.Item;
 import com.ty.ims.inventory_prject_boot.exception.NoSuchIdFoundException;
@@ -17,6 +19,8 @@ import com.ty.ims.inventory_prject_boot.util.ResponseStructure;
 public class CustomerSevice {
 	@Autowired
 	private CustomerDao dao;
+	@Autowired
+	ItemDao itemDao;
 
 	public ResponseEntity<ResponseStructure<Customer>> saveOutward(Customer customer) {
 		ResponseStructure<Customer> responseStructure = new ResponseStructure<Customer>();
@@ -29,25 +33,51 @@ public class CustomerSevice {
 				responseStructure, HttpStatus.CREATED);
 		return responseEntity;
 	}
+	public ResponseEntity<ResponseStructure<Customer>> saveitems(int customerid, int itemid) {
+		ResponseStructure<Customer> responseStructure = new ResponseStructure<Customer>();
+		Optional<Item> item = itemDao.findItembyid(itemid);
+		List<Item> items1 = (List) item.get();
+		Optional<Customer> customer = dao.getOutwardById(customerid);
+		customer.get().setCustomerId(customerid);
+		customer.get().setItem(items1);
+		responseStructure.setStatus(HttpStatus.CREATED.value());
+		responseStructure.setMessage("item saved for customer " + customerid);
+		responseStructure.setData(dao.saveOutward(customer.get()));
+		ResponseEntity<ResponseStructure<Customer>> responseEntity = new ResponseEntity<ResponseStructure<Customer>>(
+				responseStructure, HttpStatus.CREATED);
+		return responseEntity;
+	}
 
-	public ResponseEntity<ResponseStructure<Customer>> upadetOutward(Customer customer, int id) {
+	public ResponseEntity<ResponseStructure<Customer>> upadetOutward(Customer customer, int id, int itemId) {
 
 		ResponseStructure<Customer> responseStructure = new ResponseStructure<Customer>();
 		Optional<Customer> customer2 = dao.getOutwardById(id);
+		Optional<Item> existingItem = itemDao.findItembyid(itemId);
+
 		if (customer2.isPresent()) {
-			List<Item> items = customer.getItem();
-			customer.setItem(items);
-			customer.setCustomerId(id);
-			responseStructure.setStatus(HttpStatus.CREATED.value());
-			responseStructure.setMessage("customer updated");
-			responseStructure.setData(dao.updateOutward(customer));
+			if (existingItem.isPresent()) {
+				int currentItemQuantity = existingItem.get().getItem_quantity();
+
+				List<Item> items = new ArrayList<Item>();
+				List<Item> toBeUpdatedItems = customer.getItem();
+				for (Item item : toBeUpdatedItems) {
+					item.setItem_id(itemId);
+					item.setItem_quantity(currentItemQuantity - item.getItem_quantity());
+					itemDao.updateItem(item);
+
+				}
+				items.addAll(toBeUpdatedItems);
+				customer.setCustomerId(id);
+				customer.setItem(items);
+				responseStructure.setStatus(HttpStatus.CREATED.value());
+				responseStructure.setMessage("customer updated");
+				responseStructure.setData(dao.updateOutward(customer));
+			}
 		} else {
 			throw new NoSuchIdFoundException();
 		}
 
-		ResponseEntity<ResponseStructure<Customer>> responseEntity = new ResponseEntity<ResponseStructure<Customer>>(
-				responseStructure, HttpStatus.CREATED);
-		return responseEntity;
+		return new ResponseEntity<ResponseStructure<Customer>>(responseStructure, HttpStatus.CREATED);
 	}
 
 	public ResponseEntity<ResponseStructure<Customer>> getOutwardById(int id) {

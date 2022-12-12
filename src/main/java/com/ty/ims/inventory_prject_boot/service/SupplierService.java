@@ -20,7 +20,6 @@ import com.ty.ims.inventory_prject_boot.util.ResponseStructure;
 public class SupplierService {
 	@Autowired
 	private SupplierDao dao;
-	
 	@Autowired
 	ItemDao itemDao;
 
@@ -34,6 +33,7 @@ public class SupplierService {
 		ResponseEntity<ResponseStructure<Supplier>> responseEntity = new ResponseEntity<ResponseStructure<Supplier>>(
 				responseStructure, HttpStatus.CREATED);
 		return responseEntity;
+		
 	}
 
 	public ResponseEntity<ResponseStructure<Supplier>> updateinward(Supplier supplier, int id,int itemid) {
@@ -41,15 +41,14 @@ public class SupplierService {
 		Optional<Supplier> supplier2 = dao.getInwardById(id);
 		
 		Optional<Item> existingItem= itemDao.findItembyid(itemid);
-		
-		
 		if (supplier2.isPresent()) {
 			if(existingItem.isPresent()) {
+				int currentItemQuantity=existingItem.get().getItem_quantity();
 				List<Item> items = new ArrayList<Item>();
 				List<Item> toBeUpdatedItems=supplier.getItems();
 				for (Item item : toBeUpdatedItems) {
 					item.setItem_id(itemid);
-					
+					item.setItem_quantity(currentItemQuantity+item.getItem_quantity());
 					itemDao.updateItem(item);
 					
 				}
