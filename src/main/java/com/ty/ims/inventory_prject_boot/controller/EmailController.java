@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ty.ims.inventory_prject_boot.service.EmailService;
@@ -21,9 +22,9 @@ public class EmailController {
 	
 	
 	@PostMapping("sendMail")
-    public ResponseEntity<ResponseStructure<String>> sendMail(@RequestBody EmailDetails details){
+    public ResponseEntity<ResponseStructure<String>> sendMail(@RequestBody EmailDetails details,@RequestParam int supplierid){
 
-        return emailService.sendSimpleMail(details);
+        return emailService.sendSimpleMail(details,supplierid);
     }
  
     @PostMapping("/sendMailWithAttachment")

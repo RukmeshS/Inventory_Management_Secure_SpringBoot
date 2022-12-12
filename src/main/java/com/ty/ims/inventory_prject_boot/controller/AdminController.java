@@ -51,8 +51,8 @@ public class AdminController {
 			@ApiResponse(code=404,message = "Not Found"),
 			@ApiResponse(code=500,message = "Internal Server Error")
 	})
-	@GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<ResponseStructure<Admin>> getAdmin(@RequestParam int id){
+	@GetMapping(value="/{id}",produces = {MediaType.APPLICATION_JSON_VALUE})
+	public ResponseEntity<ResponseStructure<Admin>> getAdmin(@PathVariable int id){
 		return adminService.getAdminById(id);
 	}
 	

@@ -1,6 +1,7 @@
 package com.ty.ims.inventory_prject_boot.service;
 
 import java.io.File;
+import java.util.Optional;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -33,9 +34,10 @@ public class EmailServiceImpl implements EmailService {
 	@Autowired
 	SupplierDao supplierDao;
 
+	
 
 	@Override
-	public ResponseEntity<ResponseStructure<String>> sendSimpleMail(EmailDetails details) throws EmailNotSendException  {
+	public ResponseEntity<ResponseStructure<String>> sendSimpleMail(EmailDetails details,int supplierid) throws EmailNotSendException  {
 	
 			 
             SimpleMailMessage mailMessage = new SimpleMailMessage();
@@ -45,8 +47,19 @@ public class EmailServiceImpl implements EmailService {
             mailMessage.setText(details.getMsgBody());
             mailMessage.setSubject(details.getSubject());
            
-            Supplier supplier=details.getSupplier();
-            supplierDao.saveInward(supplier);
+            Optional<Supplier> optional=supplierDao.getInwardById(supplierid);
+            
+        	Supplier supplier;
+            
+            if(optional.isPresent()) {
+            	supplier=optional.get();
+            	if(details.getRecipient().matches(supplier.getSupplierEmailId())){
+                	supplier.getSupplierEmailId();
+                	supplier.setSupplierId(supplierid);
+                    details.setSupplier(supplier);
+                    supplierDao.saveInward(supplier);
+                }
+            }
  
             ResponseStructure<String> responseStructure= new ResponseStructure<String>();
             
