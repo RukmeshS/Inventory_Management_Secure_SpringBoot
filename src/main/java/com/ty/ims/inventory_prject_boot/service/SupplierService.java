@@ -1,5 +1,6 @@
 package com.ty.ims.inventory_prject_boot.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import com.ty.ims.inventory_prject_boot.dao.ItemDao;
 import com.ty.ims.inventory_prject_boot.dao.SupplierDao;
 import com.ty.ims.inventory_prject_boot.dto.Item;
 import com.ty.ims.inventory_prject_boot.dto.Supplier;
@@ -17,6 +20,9 @@ import com.ty.ims.inventory_prject_boot.util.ResponseStructure;
 public class SupplierService {
 	@Autowired
 	private SupplierDao dao;
+	
+	@Autowired
+	ItemDao itemDao;
 
 	public ResponseEntity<ResponseStructure<Supplier>> saveinward(Supplier supplier) {
 		ResponseStructure<Supplier> responseStructure = new ResponseStructure<Supplier>();
@@ -30,32 +36,38 @@ public class SupplierService {
 		return responseEntity;
 	}
 
-	public ResponseEntity<ResponseStructure<Supplier>> updateinward(Supplier supplier, int id) {
+	public ResponseEntity<ResponseStructure<Supplier>> updateinward(Supplier supplier, int id,int itemid) {
 		ResponseStructure<Supplier> responseStructure = new ResponseStructure<Supplier>();
 		Optional<Supplier> supplier2 = dao.getInwardById(id);
+		
+		Optional<Item> existingItem= itemDao.findItembyid(itemid);
+		
+		
 		if (supplier2.isPresent()) {
-			List<Item> items = supplier.getItems();
-			List<Item> items1 = supplier2.get().getItems();
-			
-			//not working
-			for (Item item : items) {
-				for (Item item1 : items1) {
-					item.setItem_id(item1.getItem_id());
+			if(existingItem.isPresent()) {
+				List<Item> items = new ArrayList<Item>();
+				List<Item> toBeUpdatedItems=supplier.getItems();
+				for (Item item : toBeUpdatedItems) {
+					item.setItem_id(itemid);
+					
+					itemDao.updateItem(item);
+					
 				}
-
-			}
-
-			supplier.setItems(items1);
-			supplier.setSupplierId(id);
-			responseStructure.setStatus(HttpStatus.CREATED.value());
-			responseStructure.setMessage("supplier updated");
-			responseStructure.setData(dao.updateInward(supplier));
+				items.addAll(toBeUpdatedItems);
+				
+				supplier.setSupplierId(id);
+				supplier.setItems(items);
+				responseStructure.setStatus(HttpStatus.CREATED.value());
+				responseStructure.setMessage("supplier updated");
+				responseStructure.setData(dao.updateInward(supplier));
+			
+				
+			}	
 		} else {
 			throw new NoSuchIdFoundException();
 		}
-		ResponseEntity<ResponseStructure<Supplier>> responseEntity = new ResponseEntity<ResponseStructure<Supplier>>(
-				responseStructure, HttpStatus.CREATED);
-		return responseEntity;
+		
+		return new ResponseEntity<ResponseStructure<Supplier>>(responseStructure,HttpStatus.CREATED);
 	}
 
 	public ResponseEntity<ResponseStructure<Supplier>> getInwardById(int id) {
