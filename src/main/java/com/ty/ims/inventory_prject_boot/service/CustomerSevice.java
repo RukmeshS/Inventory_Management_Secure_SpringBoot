@@ -9,8 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.ty.ims.inventory_prject_boot.dao.CustomerDao;
+import com.ty.ims.inventory_prject_boot.dao.InventoryDao;
 import com.ty.ims.inventory_prject_boot.dao.ItemDao;
 import com.ty.ims.inventory_prject_boot.dto.Customer;
+import com.ty.ims.inventory_prject_boot.dto.Inventory;
 import com.ty.ims.inventory_prject_boot.dto.Item;
 import com.ty.ims.inventory_prject_boot.exception.NoSuchIdFoundException;
 import com.ty.ims.inventory_prject_boot.util.ResponseStructure;
@@ -21,6 +23,12 @@ public class CustomerSevice {
 	private CustomerDao dao;
 	@Autowired
 	ItemDao itemDao;
+	
+	@Autowired
+	InventoryDao inventoryDao;
+	
+	@Autowired
+	Inventory inventory;
 
 	public ResponseEntity<ResponseStructure<Customer>> saveOutward(Customer customer) {
 		ResponseStructure<Customer> responseStructure = new ResponseStructure<Customer>();
@@ -55,6 +63,7 @@ public class CustomerSevice {
 		Optional<Item> existingItem = itemDao.findItembyid(itemId);
 
 		if (customer2.isPresent()) {
+			if(inventoryOptional.isPresent()) {
 			if (existingItem.isPresent()) {
 				int currentItemQuantity = existingItem.get().getItem_quantity();
 
@@ -72,6 +81,7 @@ public class CustomerSevice {
 				responseStructure.setStatus(HttpStatus.CREATED.value());
 				responseStructure.setMessage("customer updated");
 				responseStructure.setData(dao.updateOutward(customer));
+			}
 			}
 		} else {
 			throw new NoSuchIdFoundException();

@@ -3,49 +3,37 @@ package com.ty.ims.inventory_prject_boot.dto;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.Getter;
-import lombok.Setter;
-
-@Getter
-@Setter
 @Entity
-public class Supplier {
+public class InwardReport {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int supplierId;
+	private int id;
 	
 	private String supplierName;
 	
 	private long supplierPhoneNo;
 	
 	private String supplierEmailId;
-	
+
 	private Date inwardDate;
 	
 	private int inwardQuantity;
-//	@JsonIgnore
-	@ManyToMany(cascade = CascadeType.PERSIST)
-	@JoinTable(joinColumns = @JoinColumn, inverseJoinColumns = @JoinColumn)
-	private List<Item> items;
+	
+	private String ItemName;
 
-	public int getSupplierId() {
-		return supplierId;
+	public int getId() {
+		return id;
 	}
 
-	public void setSupplierId(int supplierId) {
-		this.supplierId = supplierId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getSupplierName() {
@@ -88,12 +76,21 @@ public class Supplier {
 		this.inwardQuantity = inwardQuantity;
 	}
 
-	public List<Item> getItems() {
-		return items;
+	public String getItemName() {
+		return ItemName;
 	}
 
-	public void setItems(List<Item> items) {
-		this.items = items;
+	public void setItemName(String itemName) {
+		ItemName = itemName;
 	}
 
+
+
+		
+	
+	
+
+	
+	
+	
 }

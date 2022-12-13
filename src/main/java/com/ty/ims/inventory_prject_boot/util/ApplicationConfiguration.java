@@ -10,6 +10,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
+import com.ty.ims.inventory_prject_boot.dto.Inventory;
+import com.ty.ims.inventory_prject_boot.dto.InwardReport;
+
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
@@ -50,4 +53,14 @@ public class ApplicationConfiguration {
 		return mailSender;
 	}
 	
+	
+	@Bean
+	public InwardReport getInwardReport() {
+		return new InwardReport();
+	}
+	
+	@Bean
+	public Inventory getInventory() {
+		return new Inventory();
+	}
 }
