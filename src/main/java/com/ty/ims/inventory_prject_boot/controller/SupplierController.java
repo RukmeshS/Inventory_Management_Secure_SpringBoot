@@ -46,8 +46,8 @@ public class SupplierController {
 	@PutMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<ResponseStructure<Supplier>> updateInward(@RequestBody Supplier supplier,
-			@RequestParam int id,@RequestParam int itemId) {
-		return service.updateinward(supplier, id,itemId);
+			@RequestParam int id,@RequestParam int itemId,@RequestParam int inventoryid) {
+		return service.updateinward(supplier, id,itemId,inventoryid);
 	}
 
 	@ApiOperation(value = "get Inward", notes = "method used to fetch Inward by id")

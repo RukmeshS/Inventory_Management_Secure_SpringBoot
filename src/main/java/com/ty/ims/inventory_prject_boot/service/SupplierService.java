@@ -9,8 +9,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.ty.ims.inventory_prject_boot.dao.InventoryDao;
+import com.ty.ims.inventory_prject_boot.dao.InwardReportDao;
 import com.ty.ims.inventory_prject_boot.dao.ItemDao;
 import com.ty.ims.inventory_prject_boot.dao.SupplierDao;
+import com.ty.ims.inventory_prject_boot.dto.Inventory;
+import com.ty.ims.inventory_prject_boot.dto.InwardReport;
 import com.ty.ims.inventory_prject_boot.dto.Item;
 import com.ty.ims.inventory_prject_boot.dto.Supplier;
 import com.ty.ims.inventory_prject_boot.exception.NoSuchIdFoundException;
@@ -22,6 +26,18 @@ public class SupplierService {
 	private SupplierDao dao;
 	@Autowired
 	ItemDao itemDao;
+	@Autowired
+	InwardReportDao inwardReportDao;
+	
+	@Autowired
+	InwardReport inwardReport;
+	
+	@Autowired
+	InventoryDao inventoryDao;
+	
+	@Autowired
+	Inventory inventory;
+	
 
 	public ResponseEntity<ResponseStructure<Supplier>> saveinward(Supplier supplier) {
 		ResponseStructure<Supplier> responseStructure = new ResponseStructure<Supplier>();
@@ -36,32 +52,52 @@ public class SupplierService {
 		
 	}
 
-	public ResponseEntity<ResponseStructure<Supplier>> updateinward(Supplier supplier, int id,int itemid) {
+	public ResponseEntity<ResponseStructure<Supplier>> updateinward(Supplier supplier, int id,int itemid,int inventoryid) {
 		ResponseStructure<Supplier> responseStructure = new ResponseStructure<Supplier>();
 		Optional<Supplier> supplier2 = dao.getInwardById(id);
 		
+		Optional<Inventory> inventoryOptional = inventoryDao.findInventorybyid(inventoryid);
+		
 		Optional<Item> existingItem= itemDao.findItembyid(itemid);
 		if (supplier2.isPresent()) {
-			if(existingItem.isPresent()) {
-				int currentItemQuantity=existingItem.get().getItem_quantity();
-				List<Item> items = new ArrayList<Item>();
-				List<Item> toBeUpdatedItems=supplier.getItems();
-				for (Item item : toBeUpdatedItems) {
-					item.setItem_id(itemid);
-					item.setItem_quantity(currentItemQuantity+item.getItem_quantity());
-					itemDao.updateItem(item);
+			if(inventoryOptional.isPresent()) {
+				if(existingItem.isPresent()) {
+					  inventory = inventoryOptional.get();
+					 Supplier existingSupplier=supplier2.get();
+						int currentItemQuantity=existingItem.get().getItem_quantity();
+						List<Item> items = new ArrayList<Item>();
+						List<Item> toBeUpdatedItems=supplier.getItems();
+						for (Item item : toBeUpdatedItems) {
+							item.setItem_id(itemid);
+							item.setItem_quantity(currentItemQuantity+item.getItem_quantity());
+							inventory.setProduct_id(inventoryid);
+							item.setInventory(inventory);
+							inwardReport.setSupplierName(existingSupplier.getSupplierName());
+							inwardReport.setSupplierEmailId(existingSupplier.getSupplierEmailId());
+							inwardReport.setSupplierPhoneNo(existingSupplier.getSupplierPhoneNo());
+							inwardReport.setInwardDate(existingSupplier.getInwardDate());
+							inwardReport.setItemName(item.getItem_name());
+							inwardReport.setInwardQuantity(existingSupplier.getInwardQuantity());
+							
+							itemDao.updateItem(item);
+							inwardReportDao.saveInwardReport(inwardReport);
+						}
+						items.addAll(toBeUpdatedItems);
+						
+						supplier.setSupplierId(id);
+						supplier.setItems(items);
+						
+						
+						
+						
+						responseStructure.setStatus(HttpStatus.CREATED.value());
+						responseStructure.setMessage("supplier updated");
+						responseStructure.setData(dao.updateInward(supplier));
 					
-				}
-				items.addAll(toBeUpdatedItems);
+						
+					}
+			}
 				
-				supplier.setSupplierId(id);
-				supplier.setItems(items);
-				responseStructure.setStatus(HttpStatus.CREATED.value());
-				responseStructure.setMessage("supplier updated");
-				responseStructure.setData(dao.updateInward(supplier));
-			
-				
-			}	
 		} else {
 			throw new NoSuchIdFoundException();
 		}
