@@ -27,18 +27,6 @@ public class CustomerController {
 	@Autowired
 	private CustomerSevice service;
 
-//	@ApiOperation(value = "save Outward", notes = "method used to save Outward")
-//	@ApiResponses(value = { @ApiResponse(code = 201, message = "created"), @ApiResponse(code = 200, message = "ok"),
-//			@ApiResponse(code = 500, message = "internal server error"), @ApiResponse(code = 404, message = "notfound"),
-//			@ApiResponse(code = 302, message = "notfound") })
-//
-//	@PostMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces = {
-//			MediaType.APPLICATION_JSON_VALUE })
-//	public ResponseEntity<ResponseStructure<Customer>> saveItems(@RequestParam int customerId,
-//			@RequestParam int itemId) {
-//		return service.saveitems(customerId, itemId);
-//	}
-
 	@ApiOperation(value = "save Outward", notes = "method used to save Outward")
 	@ApiResponses(value = { @ApiResponse(code = 201, message = "created"), @ApiResponse(code = 200, message = "ok"),
 			@ApiResponse(code = 500, message = "internal server error"), @ApiResponse(code = 404, message = "notfound"),
@@ -58,8 +46,8 @@ public class CustomerController {
 	@PutMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<ResponseStructure<Customer>> updateOutward(@RequestBody Customer customer,
-			@RequestParam int id, @RequestParam int itemId) {
-		return service.upadetOutward(customer, id, itemId);
+			@RequestParam int customerid, @RequestParam int itemId, @RequestParam int inventoryid) {
+		return service.upadetOutward(customer, customerid, itemId, inventoryid);
 	}
 
 	@ApiOperation(value = "get Outward", notes = "method used to fetch Outward by id")

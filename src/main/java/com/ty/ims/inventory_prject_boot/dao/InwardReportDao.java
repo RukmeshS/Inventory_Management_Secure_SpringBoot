@@ -11,9 +11,9 @@ public class InwardReportDao {
 
 	@Autowired
 	InwardReportRepository inwardReportRepository;
-	
+
 	public InwardReport saveInwardReport(InwardReport inwardReport) {
-		
+
 		return inwardReportRepository.save(inwardReport);
 	}
 }
