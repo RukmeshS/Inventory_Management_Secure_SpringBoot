@@ -14,30 +14,26 @@ public class AdminDao {
 
 	@Autowired
 	AdminRepository adminRepository;
-	
-	
+
 	public Admin saveAdmin(Admin admin) {
 		return adminRepository.save(admin);
 	}
-	
-	
-	public List<Admin> getAllAdmin(){
+
+	public List<Admin> getAllAdmin() {
 		return adminRepository.findAll();
 	}
-	
-	
-	public Optional<Admin> getAdminById(int id) {	
-			return adminRepository.findById(id);
+
+	public Optional<Admin> getAdminById(int id) {
+		return adminRepository.findById(id);
 	}
-	
+
 	public Admin updateAdmin(Admin admin) {
 		return adminRepository.save(admin);
 	}
-	
+
 	public void deleteAdmin(Admin admin) {
-		 adminRepository.delete(admin);
-		 
+		adminRepository.delete(admin);
+
 	}
-	
-	
+
 }

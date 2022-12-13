@@ -11,10 +11,10 @@ public class OutwardReportDao {
 
 	@Autowired
 	OutwardReportRepository outwardReportRepository;
-	
+
 	public OutwardReport saveOutwardReport(OutwardReport outwardReport) {
-			
-			return outwardReportRepository.save(outwardReport);
-		
+
+		return outwardReportRepository.save(outwardReport);
+
 	}
 }
