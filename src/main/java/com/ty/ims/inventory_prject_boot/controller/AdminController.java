@@ -28,6 +28,7 @@ public class AdminController {
 	@Autowired
 	AdminService adminService;
 
+
 	@ApiOperation(value = "Save Admin", notes = "Used to save the admin")
 	@ApiResponses(value = { @ApiResponse(code = 404, message = "Not Found"),
 			@ApiResponse(code = 201, message = "Created"), @ApiResponse(code = 302, message = "Found"),
@@ -41,7 +42,7 @@ public class AdminController {
 	}
 
 	@ApiOperation(value = "Get The Admin", notes = "Used To Get The Admin")
-	@ApiResponses(value = { @ApiResponse(code = 201, message = "Created"), @ApiResponse(code = 302, message = "Found"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "OK"),@ApiResponse(code = 201, message = "Created"), @ApiResponse(code = 302, message = "Found"),
 			@ApiResponse(code = 404, message = "Not Found"),
 			@ApiResponse(code = 500, message = "Internal Server Error") })
 	@GetMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })

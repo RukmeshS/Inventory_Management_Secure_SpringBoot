@@ -3,6 +3,7 @@ package com.ty.ims.inventory_prject_boot.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +20,16 @@ public class InventoryService {
 
 	@Autowired
 	InventoryDao dao;
+	
+	Logger logger = Logger.getLogger(InventoryService.class);
 
 	public ResponseEntity<ResponseStructure<Inventory>> serviceSaveInventory(Inventory inventory) {
 		ResponseStructure<Inventory> responseStructure = new ResponseStructure<Inventory>();
+		logger.debug("Inventory");
 		responseStructure.setStatus(HttpStatus.CREATED.value());
 		responseStructure.setMessage("Inventory Product Created");
 		responseStructure.setData(dao.saveInventory(inventory));
+		logger.info("Inventory is Saved in DB");
 		return new ResponseEntity<ResponseStructure<Inventory>>(responseStructure, HttpStatus.CREATED);
 
 	}
@@ -32,10 +37,13 @@ public class InventoryService {
 	public ResponseEntity<ResponseStructure<Inventory>> serviceqtySaveInventory(Inventory inventory, int id) {
 		ResponseStructure<Inventory> responseStructure = new ResponseStructure<Inventory>();
 		Optional<Inventory> optional = dao.findInventorybyid(id);
+		logger.info("Searching for Inventory");
 		if (optional.isPresent()) {
+			logger.info(" requested Inventory Found in database");
 			inventory.setProduct_id(id);
 			List<Item> list = optional.get().getItem();
 			int total_quantity = 0;
+			logger.info("Calculating Total Quantity for Items");
 			for (Item item : list) {
 				total_quantity = total_quantity + (item.getItem_quantity());
 			}
@@ -45,7 +53,8 @@ public class InventoryService {
 			responseStructure.setMessage("Inventory Product Created and Updated Total Quantity");
 			responseStructure.setData(dao.saveInventory(inventory));
 			return new ResponseEntity<ResponseStructure<Inventory>>(responseStructure, HttpStatus.OK);
-		}
+		} 
+		logger.fatal("no Item found for requested id");
 		throw new NoSuchIdFoundException();
 	}
 
@@ -57,6 +66,7 @@ public class InventoryService {
 			responseStructure.setStatus(HttpStatus.ACCEPTED.value());
 			responseStructure.setMessage("Inventory Product Update");
 			responseStructure.setData(dao.updateInventory(inventory));
+			logger.info("Inventory Updated");
 			return new ResponseEntity<ResponseStructure<Inventory>>(responseStructure, HttpStatus.ACCEPTED);
 		}
 		throw new NoSuchIdFoundException();

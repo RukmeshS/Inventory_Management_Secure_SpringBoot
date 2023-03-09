@@ -21,8 +21,8 @@ public class CustomerDao {
 		return repository.save(customer);
 	}
 
-	public Optional<Customer> getOutwardById(int id) {
-		return repository.findById(id);
+	public Optional<Customer> getOutwardById(String id) {
+		return Optional.of(repository.findByCustomerId(id));
 	}
 
 	public void deleteOutward(Customer customer) {

@@ -1,7 +1,6 @@
 package com.ty.ims.inventory_prject_boot.dto;
 
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

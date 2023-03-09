@@ -7,12 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.Builder;
+import lombok.Data;
 
-@Getter
-@Setter
+@Data
+@Builder
 @Entity
 public class Admin {
 
@@ -23,11 +22,11 @@ public class Admin {
 	private String adminEmail;
 	@NotNull
 	private String adminPassword;
-	@NotNull
+	
 	private String adminName;
 	@Column(unique = true)
 	private String adminRole;
-	@NotNull
+	
 	private long adminPhone;
 
 	public int getId() {
@@ -77,5 +76,24 @@ public class Admin {
 	public void setAdminPhone(long adminPhone) {
 		this.adminPhone = adminPhone;
 	}
+
+	public Admin(int id, @NotNull String adminEmail, @NotNull String adminPassword, @NotNull String adminName,
+			String adminRole, @NotNull long adminPhone) {
+		super();
+		this.id = id;
+		this.adminEmail = adminEmail;
+		this.adminPassword = adminPassword;
+		this.adminName = adminName;
+		this.adminRole = adminRole;
+		this.adminPhone = adminPhone;
+	}
+
+	public Admin() {
+		super();
+	}
+	
+	
+	
+	
 
 }

@@ -5,10 +5,16 @@ import java.util.List;
 import java.util.Properties;
 
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.SecurityFilterChain;
 
 import com.ty.ims.inventory_prject_boot.dto.Inventory;
 import com.ty.ims.inventory_prject_boot.dto.InwardReport;
@@ -35,7 +41,7 @@ public class ApplicationConfiguration {
 				"testyantra.com", contact, "Apache Tomcat", "apache.com", extenList);
 
 		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("com.ty.ims.inventory_prject_boot")).build();
+				.apis(RequestHandlerSelectors.basePackage("com.ty.ims.inventory_prject_boot")).build().apiInfo(apiInfo);
 	}
 
 	@Bean
@@ -70,4 +76,23 @@ public class ApplicationConfiguration {
 		return new OutwardReport();
 	}
 
+	
+	// Spring security configuration
+	
+	
+//	
+//	@Bean
+//	public SecurityFilterChain getFilterChain(HttpSecurity http) throws Exception {
+//				http
+//					.authorizeRequests()
+//					.antMatchers("/outwardreport").hasRole("ADMIN")
+//					.antMatchers("/inventory").hasAnyRole("USER","ADMIN")
+//					.antMatchers("/").permitAll()
+//					.and().formLogin();
+//				
+//				
+//				return http.build();
+//	}
+	
+	
 }

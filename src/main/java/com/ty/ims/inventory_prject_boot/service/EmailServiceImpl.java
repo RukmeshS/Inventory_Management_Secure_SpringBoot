@@ -1,11 +1,10 @@
 package com.ty.ims.inventory_prject_boot.service;
 
 import java.io.File;
-import java.util.List;
-import java.util.Optional;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -16,10 +15,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
-import com.ty.ims.inventory_prject_boot.dao.SupplierDao;
 import com.ty.ims.inventory_prject_boot.dto.EmailDetails;
-import com.ty.ims.inventory_prject_boot.dto.Item;
-import com.ty.ims.inventory_prject_boot.dto.Supplier;
 import com.ty.ims.inventory_prject_boot.exception.EmailNotSendException;
 import com.ty.ims.inventory_prject_boot.util.ResponseStructure;
 

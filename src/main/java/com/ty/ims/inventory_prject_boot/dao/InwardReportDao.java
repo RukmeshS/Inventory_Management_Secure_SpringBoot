@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.ty.ims.inventory_prject_boot.dto.InwardReport;
-import com.ty.ims.inventory_prject_boot.dto.OutwardReport;
 import com.ty.ims.inventory_prject_boot.repository.InwardReportRepository;
 
 @Repository

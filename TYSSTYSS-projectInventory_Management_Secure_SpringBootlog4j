@@ -1,0 +1,35 @@
+2023-03-01 11:58:46,065 +0530 [http-nio-8081-exec-4] DEBUG (CustomerSevice.java:61) - Customer outward Items 
+ 2023-03-01 11:58:46,077 +0530 [http-nio-8081-exec-4] INFO  (CustomerSevice.java:63) - Getting all List fo items
+ 2023-03-01 12:01:11,062 +0530 [http-nio-8081-exec-2] DEBUG (CustomerSevice.java:61) - Customer outward Items 
+ 2023-03-01 12:01:11,063 +0530 [http-nio-8081-exec-2] INFO  (CustomerSevice.java:63) - Getting all List fo items
+ 2023-03-01 12:02:20,875 +0530 [http-nio-8081-exec-2] DEBUG (CustomerSevice.java:61) - Customer outward Items 
+ 2023-03-01 12:02:20,880 +0530 [http-nio-8081-exec-2] INFO  (CustomerSevice.java:63) - Getting all List fo items
+ 2023-03-01 12:04:46,831 +0530 [http-nio-8081-exec-2] DEBUG (CustomerSevice.java:61) - Customer outward Items 
+ 2023-03-01 12:04:46,833 +0530 [http-nio-8081-exec-2] INFO  (CustomerSevice.java:63) - Getting all List fo items
+ 2023-03-01 12:04:46,986 +0530 [http-nio-8081-exec-2] INFO  (CustomerSevice.java:67) - Customer added Successfully
+ 2023-03-01 12:07:38,900 +0530 [http-nio-8081-exec-5] DEBUG (CustomerSevice.java:61) - Customer outward Items 
+ 2023-03-01 12:07:38,901 +0530 [http-nio-8081-exec-5] INFO  (CustomerSevice.java:63) - Getting all List fo items
+ 2023-03-01 12:07:38,921 +0530 [http-nio-8081-exec-5] INFO  (CustomerSevice.java:67) - Customer added Successfully
+ 2023-03-01 12:32:31,202 +0530 [http-nio-8081-exec-1] DEBUG (CustomerSevice.java:65) - Customer outward Items 
+ 2023-03-01 12:32:31,418 +0530 [http-nio-8081-exec-1] INFO  (CustomerSevice.java:68) - Getting all List fo items
+ 2023-03-01 12:32:31,624 +0530 [http-nio-8081-exec-1] INFO  (CustomerSevice.java:72) - Customer added Successfully
+ 2023-03-01 12:40:33,439 +0530 [http-nio-8081-exec-2] DEBUG (CustomerSevice.java:65) - Customer outward Items 
+ 2023-03-01 12:40:33,440 +0530 [http-nio-8081-exec-2] INFO  (CustomerSevice.java:68) - Getting all List fo items
+ 2023-03-01 12:40:33,499 +0530 [http-nio-8081-exec-2] INFO  (CustomerSevice.java:72) - Customer added Successfully
+ 2023-03-01 12:43:51,140 +0530 [http-nio-8081-exec-2] DEBUG (CustomerSevice.java:64) - Customer outward Items 
+ 2023-03-01 12:43:51,237 +0530 [http-nio-8081-exec-2] INFO  (CustomerSevice.java:67) - Getting all List fo items
+ 2023-03-01 12:43:51,426 +0530 [http-nio-8081-exec-2] INFO  (CustomerSevice.java:71) - Customer added Successfully
+ 2023-03-01 12:58:45,232 +0530 [http-nio-8081-exec-2] DEBUG (CustomerSevice.java:64) - Customer outward Items 
+ 2023-03-01 12:58:45,235 +0530 [http-nio-8081-exec-2] INFO  (CustomerSevice.java:67) - Getting all List fo items
+ 2023-03-01 12:58:45,486 +0530 [http-nio-8081-exec-2] INFO  (CustomerSevice.java:71) - Customer added Successfully
+ 2023-03-01 13:06:19,554 +0530 [http-nio-8081-exec-1] DEBUG (CustomerSevice.java:64) - Customer outward Items 
+ 2023-03-01 13:06:19,566 +0530 [http-nio-8081-exec-1] INFO  (CustomerSevice.java:67) - Getting all List fo items
+ 2023-03-01 13:07:47,313 +0530 [http-nio-8081-exec-5] DEBUG (CustomerSevice.java:64) - Customer outward Items 
+ 2023-03-01 13:07:47,325 +0530 [http-nio-8081-exec-5] INFO  (CustomerSevice.java:67) - Getting all List fo items
+ 2023-03-01 13:08:56,745 +0530 [http-nio-8081-exec-1] DEBUG (CustomerSevice.java:64) - Customer outward Items 
+ 2023-03-01 13:08:56,761 +0530 [http-nio-8081-exec-1] INFO  (CustomerSevice.java:67) - Getting all List fo items
+ 2023-03-01 13:08:57,291 +0530 [http-nio-8081-exec-1] INFO  (CustomerSevice.java:71) - Customer added Successfully
+ 2023-03-01 13:17:06,024 +0530 [http-nio-8081-exec-1] DEBUG (CustomerSevice.java:64) - Customer outward Items 
+ 2023-03-01 13:17:06,028 +0530 [http-nio-8081-exec-1] INFO  (CustomerSevice.java:67) - Getting all List fo items
+ 2023-03-01 13:17:06,291 +0530 [http-nio-8081-exec-1] INFO  (CustomerSevice.java:71) - Customer added Successfully
+ 

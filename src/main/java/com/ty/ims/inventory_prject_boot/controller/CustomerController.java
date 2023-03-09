@@ -46,7 +46,7 @@ public class CustomerController {
 	@PutMapping(consumes = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE }, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<ResponseStructure<Customer>> updateOutward(@RequestBody Customer customer,
-			@RequestParam int customerid, @RequestParam int itemId, @RequestParam int inventoryid) {
+			@RequestParam String customerid, @RequestParam int itemId, @RequestParam int inventoryid) {
 		return service.upadetOutward(customer, customerid, itemId, inventoryid);
 	}
 
@@ -56,7 +56,7 @@ public class CustomerController {
 			@ApiResponse(code = 302, message = "notfound") })
 
 	@GetMapping(produces = { MediaType.APPLICATION_JSON_VALUE })
-	public ResponseEntity<ResponseStructure<Customer>> getOutwardById(@RequestParam int id) {
+	public ResponseEntity<ResponseStructure<Customer>> getOutwardById(@RequestParam String id) {
 		return service.getOutwardById(id);
 	}
 
@@ -67,7 +67,7 @@ public class CustomerController {
 
 	@DeleteMapping(value = "/{id}", produces = { MediaType.APPLICATION_JSON_VALUE })
 
-	public ResponseEntity<ResponseStructure<Customer>> deleteOutwardById(@PathVariable int id) {
+	public ResponseEntity<ResponseStructure<Customer>> deleteOutwardById(@PathVariable String id) {
 		return service.deleteOutwardById(id);
 	}
 
